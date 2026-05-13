@@ -3,7 +3,7 @@ import HydrateKit
 
 struct HomeView: View {
     @State private var todayML: Double = 0
-    @State private var targetML: Double = 2000
+    @AppStorage("targetML") private var targetML: Double = 2000
     @State private var selectedContainer: DrinkContainer?
     @State private var showPortionPicker = false
     @State private var recentRecords: [WaterRecord] = []

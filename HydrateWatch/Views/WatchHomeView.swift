@@ -30,26 +30,30 @@ struct WatchHomeView: View {
                     .frame(width: 120, height: 120)
 
                     ForEach(containers) { container in
-                        NavigationLink {
-                            if case .portionSelect(let portions) = container.mode {
-                                PortionPickerView(container: container, portions: portions) { amount in
-                                    recordDrink(container: container, amount: amount)
-                                }
-                            }
-                        } label: {
-                            HStack {
-                                Image(systemName: container.icon)
-                                Text(container.name)
-                                Spacer()
-                                if case .oneTap = container.mode {
+                        switch container.mode {
+                        case .oneTap:
+                            Button {
+                                recordDrink(container: container, amount: container.totalAmount ?? 0)
+                            } label: {
+                                HStack {
+                                    Image(systemName: container.icon)
+                                    Text(container.name)
+                                    Spacer()
                                     Text("\(Int(container.totalAmount ?? 0))ml")
                                         .foregroundStyle(.secondary)
                                 }
                             }
-                        }
-                        .onTapGesture {
-                            if case .oneTap = container.mode {
-                                recordDrink(container: container, amount: container.totalAmount ?? 0)
+                        case .portionSelect(let portions):
+                            NavigationLink {
+                                PortionPickerView(container: container, portions: portions) { amount in
+                                    recordDrink(container: container, amount: amount)
+                                }
+                            } label: {
+                                HStack {
+                                    Image(systemName: container.icon)
+                                    Text(container.name)
+                                    Spacer()
+                                }
                             }
                         }
                     }

@@ -42,7 +42,8 @@ public final class ReminderScheduler {
 
         let exerciseMin = (try? await healthKit.todayExerciseMinutes()) ?? 0
         let currentML = store.todayTotal()
-        let targetML: Double = 2000
+        let storedTarget = UserDefaults.standard.double(forKey: "targetML")
+        let targetML = storedTarget > 0 ? storedTarget : 2000
         let rule = loadReminderRule()
 
         let interval = calculator.nextInterval(
