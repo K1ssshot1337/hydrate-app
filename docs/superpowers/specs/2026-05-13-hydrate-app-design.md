@@ -106,7 +106,7 @@ struct Portion {
 }
 
 struct DrinkContainer {
-    let name: String          // "保温杯" / "矿泉水"
+    let name: String          // "保温杯" / "矿泉水" / "其他"
     let totalAmount: Double?  // 矿泉水 1500ml 总容量（参考）
     let icon: String          // SF Symbol 名称
     let mode: ContainerMode
@@ -114,8 +114,11 @@ struct DrinkContainer {
 ```
 
 默认预设：
-- 保温杯（480ml）：.oneTap，一点即记录
-- 矿泉水（1500ml 总容量）：.portionSelect，包含 1/5 瓶(300ml)、1/4 瓶(375ml)、1/3 瓶(500ml)
+- **保温杯**（480ml）：.oneTap，一点即记录
+- **矿泉水**（1500ml 总容量）：.portionSelect，包含 1/5 瓶(300ml)、1/4 瓶(375ml)、1/3 瓶(500ml)
+- **其他**：.portionSelect，包含 250ml 小瓶、500ml 中瓶、800ml 大瓶。覆盖不同规格矿泉水场景
+
+仅记录纯水（白水、矿泉水、白开水），不记录饮料。后续如有需要再扩展。
 
 ### WeeklyAssessment — 每周健康评估
 ```swift
@@ -145,9 +148,10 @@ struct WeeklyAssessment {
 ## 核心功能
 
 ### 1. 快捷记录（iPhone + Watch）
-- 主界面两个大图标：保温杯 / 矿泉水
+- 主界面三个大图标：保温杯 / 矿泉水 / 其他
 - 保温杯：点击直接记录 480ml
 - 矿泉水：点击弹出分量选择器（1/5、1/4、1/3 瓶），选完记录
+- 其他：点击弹出规格选择（250ml、500ml、800ml），选完记录
 - 今日累计 = 所有记录毫升数累加
 
 ### 2. 智能提醒
@@ -215,3 +219,4 @@ struct WeeklyAssessment {
 - 社交分享
 - 多用户/家庭共享
 - 天气预报集成（运动后已足够智能化）
+- 饮料记录（当前仅记录纯水）
