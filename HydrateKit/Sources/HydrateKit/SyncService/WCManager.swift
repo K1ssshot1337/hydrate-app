@@ -1,4 +1,5 @@
 import Foundation
+import CoreData
 import WatchConnectivity
 
 public final class WCManager: NSObject, @unchecked Sendable {
