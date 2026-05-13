@@ -96,7 +96,7 @@ public final class HealthKitService: @unchecked Sendable {
     // MARK: - 私有辅助
 
     private func latestQuantityValue(_ type: HKQuantityType, unit: HKUnit) async throws -> Double? {
-        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
+        let sortDescriptor = SortDescriptor<HKQuantitySample>(\.endDate, order: .reverse)
         let descriptor = HKSampleQueryDescriptor(
             predicates: [.quantitySample(type: type)],
             sortDescriptors: [sortDescriptor],
